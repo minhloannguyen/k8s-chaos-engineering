@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-app
+  labels:
+    app: my-app
+spec:
+  containers:
+  - name: my-app
+    image: loanntm/chaostk-python-demo:0.0.4
+    ports:
+    - containerPort: 5000
+    env:
+    - name: MONGO_URI
+      value: "mongodb://mongo:27017/"
+    resources:
+      limits:
+        cpu: 100m
+        memory: 50Mi
+      requests:
+        cpu: 50m
+        memory: 20Mi
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 5000
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 5000
